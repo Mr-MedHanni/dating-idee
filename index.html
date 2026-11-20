@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A little question for you 💌</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+:root{--pink:#ff5f91;--rose:#ff8eae;--ink:#402638;--cream:#fff8fa}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 15%,#ffe2ec 0,transparent 32%),radial-gradient(circle at 85% 80%,#ffe8d8 0,transparent 30%),linear-gradient(135deg,#fff7fa,#fff0f5);font-family:'DM Sans',sans-serif;color:var(--ink);overflow-x:hidden}
+.card{width:min(560px,100%);background:rgba(255,255,255,.82);border:1px solid #ffffff;box-shadow:0 24px 80px #a83d6520;border-radius:30px;padding:clamp(26px,6vw,52px);text-align:center;position:relative;backdrop-filter:blur(12px)}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#c66c8a;font-weight:700}.hero{font-size:60px;margin:12px 0 4px;animation:float 3s ease-in-out infinite}.title{font-family:'Playfair Display',serif;font-size:clamp(34px,8vw,48px);line-height:1.12;margin:12px 0;color:#5a2d43}.subtitle{font-size:16px;line-height:1.7;color:#866577;margin:14px auto 28px;max-width:390px}
+.actions{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;min-height:58px;position:relative}.btn{border:0;border-radius:999px;padding:15px 27px;font:700 15px 'DM Sans';cursor:pointer;transition:transform .2s,box-shadow .2s;touch-action:manipulation}.btn:active{transform:scale(.96)}.yes{background:linear-gradient(135deg,#ff6095,#f0447d);color:white;box-shadow:0 10px 24px #f0447d40}.yes:hover{transform:translateY(-3px);box-shadow:0 14px 28px #f0447d55}.no{background:#fff0f4;color:#c16b89;border:1px solid #ffd4e1;position:relative}.hint{font-size:12px;color:#b58b9d;margin-top:20px}
+.hidden{display:none!important}.success{animation:pop .6s cubic-bezier(.2,1.5,.5,1)}.success .hero{font-size:68px}.date-panel{margin-top:25px;padding:22px;border-radius:22px;background:#fff5f8;border:1px solid #ffe0e9;text-align:left}.date-panel h2{text-align:center;font:700 23px 'Playfair Display';margin:0 0 8px}.date-panel p{text-align:center;color:#98798a;font-size:13px;margin:0 0 18px}.field{display:block;font-size:13px;font-weight:700;color:#86566c;margin:12px 0 7px}input,textarea{width:100%;border:1px solid #f3cbd8;border-radius:13px;padding:13px 14px;background:white;font:15px 'DM Sans';color:var(--ink);outline:none}input:focus{border-color:var(--pink);box-shadow:0 0 0 3px #ff5f911a}.send{width:100%;margin-top:16px;background:#5a2d43;color:#fff}.small{font-size:11px;color:#a88b99;text-align:center;margin:12px 0 0}.footer{margin-top:24px;color:#c19aaa;font-size:11px;letter-spacing:1px}
+.heart{position:fixed;bottom:-30px;pointer-events:none;z-index:5;animation:rise linear forwards}.confetti{position:fixed;top:-15px;z-index:8;pointer-events:none;animation:fall 3.2s linear forwards}@keyframes float{50%{transform:translateY(-9px) rotate(4deg)}}@keyframes pop{0%{transform:scale(.75);opacity:0}70%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}@keyframes rise{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.1}}
+@media(max-width:420px){.card{padding:28px 20px}.btn{padding:14px 22px}.actions{gap:10px}}
+</style></head>
+<body>
+<main class="card" id="card">
+  <div class="eyebrow">A tiny question · just for you</div>
+  <div class="hero">💌</div>
+  <h1 class="title">Can I take you on a date?</h1>
+  <p class="subtitle" id="subtitle">I have one little request… Say yes, and let’s make a lovely memory together. 🌷</p>
+  <div class="actions" id="actions">
+    <button class="btn yes" id="yesBtn">Yes, of course! 💗</button>
+    <button class="btn no" id="noBtn">Skip 🙈</button>
+  </div>
+  <div class="hint" id="hint">Choose wisely… I’m secretly hoping for a YES 😌</div>
+  <section class="date-panel hidden" id="datePanel">
+    <h2>Yaaaay! You made my day! 🥹💖</h2>
+    <p>Now choose a date that works for you.</p>
+    <label class="field" for="date">Our date</label><input id="date" type="date">
+    <label class="field" for="time">What time suits you?</label><input id="time" type="time">
+    <label class="field" for="note">A little note (optional)</label><input id="note" type="text" maxlength="180" placeholder="Anything you'd like me to know…">
+    <button class="btn send" id="sendBtn">Confirm our Date on WhatsApp 💌</button>
+    <div class="small">WhatsApp will open with your confirmation message ready to send.</div>
+  </section>
+  <div class="footer">MADE WITH A LITTLE COURAGE & A LOT OF HEART</div>
+</main>
+<script>
+const noBtn=document.getElementById('noBtn'), yesBtn=document.getElementById('yesBtn'), subtitle=document.getElementById('subtitle'), hint=document.getElementById('hint');
+const messages=['Fekri mzyan… 😅','Non stp, 3tini chance 🥺','Are you really sure? 🥹','Ghir date wa7da… 🌷','My heart says you will click YES 💘','Okay okay… but try the pink button! 😇'];
+let attempts=0;
+function dodge(e){if(e)e.preventDefault();attempts++;noBtn.textContent=messages[(attempts-1)%messages.length];const x=(Math.random()-.5)*230,y=(Math.random()-.5)*130;noBtn.style.transform=`translate(${x}px,${y}px) rotate(${(Math.random()-.5)*18}deg)`;noBtn.style.position='relative';hint.textContent=attempts>3?'Hahaha, still trying? The YES button is right there! 😂':'Oops… you almost got it!';if(attempts===3)subtitle.textContent='I see you trying to escape… but I’m not giving up that easily. 😌';}
+noBtn.addEventListener('pointerenter',dodge);noBtn.addEventListener('click',dodge);noBtn.addEventListener('touchstart',dodge,{passive:false});
+function floatHearts(){const symbols=['💗','💖','💕','🌸','💘','✨'];for(let i=0;i<32;i++){const el=document.createElement('span');el.className='heart';el.textContent=symbols[Math.floor(Math.random()*symbols.length)];el.style.left=Math.random()*100+'vw';el.style.animationDuration=(3+Math.random()*4)+'s';el.style.fontSize=(16+Math.random()*22)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),7500)}}
+function confetti(){const symbols=['🎉','💗','✨','🌸','💕'];for(let i=0;i<48;i++){const el=document.createElement('span');el.className='confetti';el.textContent=symbols[Math.floor(Math.random()*symbols.length)];el.style.left=Math.random()*100+'vw';el.style.animationDelay=Math.random()*.7+'s';el.style.fontSize=(16+Math.random()*20)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4200)}}
+yesBtn.addEventListener('click',()=>{document.querySelector('.eyebrow').textContent='THE BEST ANSWER EVER';document.querySelector('.hero').textContent='🥰';document.querySelector('.title').textContent='I knew you’d say yes!';subtitle.textContent='You just made me smile like crazy. Let’s pick our special day!';document.getElementById('actions').classList.add('hidden');hint.classList.add('hidden');document.getElementById('datePanel').classList.remove('hidden');document.getElementById('card').classList.add('success');document.getElementById('date').min=new Date().toISOString().split('T')[0];confetti();floatHearts();});
+document.getElementById('sendBtn').addEventListener('click',()=>{const date=document.getElementById('date').value,time=document.getElementById('time').value,note=document.getElementById('note').value;if(!date){alert('Choose a date first 💗');return;}const message=`Hey Mohamed! ❤️🥰\n\nIt's a YES! 💗 I'd love to go on a date with you!\n\n📅 My preferred date: ${date}\n🕒 Time: ${time||'To be decided'}\n💌 A little note: ${note||'Looking forward to it!'}\n\nSee you soon! ✨`;window.open(`https://wa.me/212624793511?text=${encodeURIComponent(message)}`,'_blank','noopener');});
+</script>
+</body></html>
